@@ -1,35 +1,48 @@
 #include <stdio.h>
 
-// Funcion que hace swap a dos dirreciones enteras de memoria
 void cambiar_pos(int *n1, int *n2)
 {
-    // Almacenar un cambio
     int temp = *n1;
     *n1 = *n2;
     *n2 = temp;
 }
 
-// Implementacion del algoritmo de bubble sorrt
 void bubbleSort(int vector_entrada[], int n)
 {
-    // Para que no lo calcule cada vez que entra al ciclo
-    int tamano = n - 1;
-
-    // Por cada valor del arreglo
-    for (int i = 0; i < tamano; i++)
+    int i, j, bubble;
+    //bool bubble=false;
+    for (i = 0; i < n - 1; i++)
     {
-        int ciclos = n - i - 1;
-
-        // Recorriendo, menos los ultimos porque
-        // esos ya estan ordenados
-        for (int j = 0; j < ciclos; j++)
+        for (j = 0, bubble = 0; j < n - i - 1; j++)
         {
-
-            // Hacer swap en caso de que dos valores esten en desorden
-            if (vector_entrada[j] > vector_entrada[j + 1])
+            //[10, 5, 3, 3333]
+            if (vector_entrada[j] < vector_entrada[j + 1])
             {
-                cambiar_pos(&vector_entrada[j], &vector_entrada[j + 1]);
+                cambiar_pos(&vector_entrada[j + 1], &vector_entrada[j]);
+                bubble = 1;
             }
         }
+        if (bubble == 0)
+        {
+            break;
+        }
     }
+}
+
+int print_array(int vector_entrada[], int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+        printf("%d ,", vector_entrada[i]);
+}
+
+main(int argc, char const *argv[])
+{
+    int vector_entrada[] = {100, 1992, 0, 5, -1, 60, 70, 14, 15, 10};
+    int n = sizeof(vector_entrada) / sizeof(vector_entrada[0]);
+    bubbleSort(vector_entrada, n);
+    print_array(vector_entrada, n);
+    printf("\n");
+    printf("\n fin del ordenamiento");
+    return 0;
 }
